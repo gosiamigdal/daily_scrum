@@ -24,7 +24,6 @@ if (Meteor.isClient) {
     'click input[type="button"]': function () {
       var name = $('input[type="text"].new_item').val();
       Task.insert({name: name});
-      Session.set('editing_task_item', null);
     }
   });
 
@@ -33,8 +32,21 @@ if (Meteor.isClient) {
       var id = this._id;
       Task.remove(id);
     },
-    'dblclick p': function () {
+    'dblclick p': function (e, tmpl) {
       Session.set('editing_task_item', this._id);
+      Deps.flush();
+      var el = tmpl.$(":parent input");
+      el.focus();
+    },
+    'keyup input': function (event) {
+      if (event.which === 13) { // enter key
+        var value = event.target.value;
+        Task.update(this._id, {$set: {name: value}});
+        Session.set('editing_task_item', null);
+      }
+    },
+    'focusout input': function() {
+      Session.set('editing_task_item', null);
     }
   });
 

@@ -16,14 +16,21 @@ if (Meteor.isClient) {
 
   Template.task.task = function () {
     return Task.find().fetch();
-  }
+  };
 
   Template.task.events({
     'click input[type="button"]': function () {
       var name = $('input[type="text"]').val();
       Task.insert({name: name});
     }
-  })
+  });
+
+  Template.task_item.events({
+    "click .remove": function () {
+      var id = this._id;
+      Task.remove(id);
+    }
+  });
 }
 
 if (Meteor.isServer) {

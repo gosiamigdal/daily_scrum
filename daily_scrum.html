@@ -1,20 +1,26 @@
 <head>
     <title>daily_scrum</title>
+    <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
 </head>
 <body>
     {{> hello}}
     {{> task}}
 </body>
 <template name="hello">
-    <h1>Hello! This is Gosiak and Jacek!</h1>
-    {{greeting}}
-    <input type="button" value="Click" />
+    <h1>Write down what you have done!</h1>
 </template>
 <template name="task">
     {{#each task}}
-        <p>{{name}}</p>
+        <p>{{> task_item}}</p>
     {{/each}}
     <input type="text" placeholder="What you have done?" />
     <input type="button" value="Add task" />
+</template>
+
+<template name="task_item">
+    <div class="task_item">
+        <div class="remove">Remove</div>
+        <p>{{name}}</p>
+    </div>
 </template>
 

@@ -1,1 +1,35 @@
 /* CSS declarations go here */
+h1 {
+    font-weight: normal;
+    padding: 30px;
+    font-family: 'Lora', serif;
+}
+
+p {
+    font-size: 1.2em;
+    padding-left: 35px;
+}
+
+.task_item {
+    position: relative;
+    padding: 5px;
+}
+
+.task_item:hover {
+    background-color: grey;
+}
+
+.task_item .remove {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display: none;
+}
+
+.task_item:hover .remove {
+    display: block;
+}
+
+.task_item p {
+    margin: 0 0 0 50px;
+}

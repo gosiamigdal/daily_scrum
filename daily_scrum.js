@@ -16,9 +16,6 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.task.task = function () {
-    return Task.find().fetch();
-  };
 
   function parseTask(text) {
     var timeRegex = [
@@ -51,6 +48,28 @@ if (Meteor.isClient) {
     $('input[type="text"].new_item').val("");
   }
 
+  function toHumanTime(rawMinutes) {
+    if (Number.isInteger(rawMinutes)) {
+      if (rawMinutes > 59) {
+        var hours = rawMinutes / 60;
+        var minutes = rawMinutes % 60;
+        var result = Math.floor(hours) + "h";
+        if (minutes > 0) {
+          result += " " + minutes + "m";
+        }
+        return result;
+      } else {
+        return rawMinutes + "m";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Template.task.task = function () {
+    return Task.find().fetch();
+  };
+
   Template.task.events({
     'keyup .new_item': function () {
       if (event.which == 13) { // enter key
@@ -61,6 +80,14 @@ if (Meteor.isClient) {
       addTask();
     }
   });
+
+  Template.task.humanTotalTime = function () {
+    var sum = 0;
+    Task.find().forEach(function (el) {
+      sum += el.minutes || 0;
+    });
+    return toHumanTime(sum);
+  };
 
   Template.task_item.events({
     'click .remove': function () {
@@ -90,21 +117,7 @@ if (Meteor.isClient) {
   };
 
   Template.task_item.humanTime = function () {
-    if (Number.isInteger(this.minutes)) {
-      if (this.minutes > 59) {
-        var hours = this.minutes / 60;
-        var minutes = this.minutes % 60;
-        var result = Math.floor(hours) + "h";
-        if (minutes > 0) {
-          result += " " + minutes + "m";
-        }
-        return result;
-      } else {
-        return this.minutes + "m";
-      }
-    } else {
-      return "";
-    }
+    return toHumanTime(this.minutes);
   };
 }
 

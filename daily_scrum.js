@@ -35,11 +35,16 @@ if (Meteor.isClient) {
       if (result !== null) {
         return {
           name: text.replace(new RegExp(timeRegex[i]), ""),
-          minutes: extractTime[i](result)};
+          minutes: extractTime[i](result),
+          userId: Meteor.userId()
+        };
       }
     }
 
-    return {name: text};
+    return {
+      name: text,
+      userId: Meteor.userId()
+    };
   }
 
   function addTask() {
@@ -124,5 +129,17 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+  });
+
+  Task.allow({
+    insert: function(userId, doc) {
+      return userId != null;
+    },
+    update: function(userId, doc, fieldNames, modifier) {
+      return doc.userId == userId;
+    },
+    remove: function(userId, doc) {
+      return doc.userId == userId;
+    }
   });
 }

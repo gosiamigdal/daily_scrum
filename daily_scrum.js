@@ -124,9 +124,17 @@ if (Meteor.isClient) {
   Template.task_item.humanTime = function () {
     return toHumanTime(this.minutes);
   };
+
+  Template.task_item.owner = function () {
+    var owner = Meteor.users.findOne({_id: this.userId});
+    return owner && owner.profile.name;
+  };
+
+  Meteor.subscribe("allUsers");
 }
 
 if (Meteor.isServer) {
+  // server
   Meteor.startup(function () {
     // code to run on server at startup
   });
@@ -139,7 +147,11 @@ if (Meteor.isServer) {
       return doc.userId == userId;
     },
     remove: function(userId, doc) {
-      return doc.userId == userId;
+      return doc.userId == null || doc.userId == userId;
     }
+  });
+
+  Meteor.publish("allUsers", function () {
+    return Meteor.users.find();
   });
 }

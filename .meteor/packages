@@ -6,3 +6,6 @@
 standard-app-packages
 autopublish
 insecure
+accounts-ui
+accounts-password
+accounts-github

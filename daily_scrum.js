@@ -1,4 +1,5 @@
 Task = new Meteor.Collection("task");
+Group = new Meteor.Collection("group");
 
 
 if (Meteor.isClient) {
@@ -7,6 +8,15 @@ if (Meteor.isClient) {
   Template.main.loggedIn = function () {
     return Meteor.user() != null;
   };
+
+  Template.main.hasGroup = function () {
+    return Meteor.user() != null && Meteor.user().profile.groupId != null;
+  }
+
+  Template.hello.groupName = function () {
+    var groupId = Meteor.user().profile.groupId;
+    return Group.findOne(groupId).name;
+  }
 
 
   function parseTask(text) {
@@ -28,14 +38,16 @@ if (Meteor.isClient) {
         return {
           name: text.replace(new RegExp(timeRegex[i]), ""),
           minutes: extractTime[i](result),
-          userId: Meteor.userId()
+          userId: Meteor.userId(),
+          groupId: Meteor.user().profile.groupId
         };
       }
     }
 
     return {
       name: text,
-      userId: Meteor.userId()
+      userId: Meteor.userId(),
+      groupId: Meteor.user().profile.groupId
     };
   }
 
@@ -123,6 +135,19 @@ if (Meteor.isClient) {
   };
 
   Meteor.subscribe("allUsers");
+
+  Template.createGroup.events({
+    'click input[type="button"]': function (e, tmpl) {
+      var name = tmpl.$("input[type='text']").val();
+      console.log("Creating group" + name);
+      var id = Group.insert({name: name});
+      Meteor.users.update(Meteor.userId(), {$set:
+        {"profile.groupId": id}
+      });
+
+    }
+
+  });
 }
 
 if (Meteor.isServer) {
@@ -140,6 +165,12 @@ if (Meteor.isServer) {
     },
     remove: function(userId, doc) {
       return doc.userId == null || doc.userId == userId;
+    }
+  });
+
+  Group.allow({
+    insert: function(userId, doc) {
+      return userId != null;
     }
   });
 

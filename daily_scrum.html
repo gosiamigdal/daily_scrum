@@ -9,14 +9,20 @@
 </body>
 <template name="main">
     {{# if loggedIn}}
-        {{> hello}}
-        {{> task}}
+        {{# if hasGroup}}
+            {{> hello}}
+            {{> task}}
+        {{else}}
+            <h1>Choose your group or create your own!</h1>
+            {{> createGroup}}
+        {{/if}}
+
     {{else}}
         <h1>Daily scrum</h1>
     {{/if}}
 </template>
 <template name="hello">
-    <h1>Write down what you have done!</h1>
+    <h1>{{groupName}} Write down what you have done!</h1>
 </template>
 <template name="task">
     {{#each task}}
@@ -36,4 +42,10 @@
             <p>Time: {{humanTime}}, {{name}} by {{owner}}</p>
         {{/if}}
     </div>
+</template>
+
+<template name="createGroup">
+    <h2>Create your group</h2>
+    <input type="text" placeholder="Name your group"/>
+    <input type="button" value="Create">
 </template>

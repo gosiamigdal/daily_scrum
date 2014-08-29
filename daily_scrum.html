@@ -15,6 +15,7 @@
         {{else}}
             <h1>Choose your group or create your own!</h1>
             {{> createGroup}}
+            {{> joinGroup}}
         {{/if}}
 
     {{else}}
@@ -23,6 +24,8 @@
 </template>
 <template name="hello">
     <h1>{{groupName}} Write down what you have done!</h1>
+    <input type="text" placeholder="Email address" />
+    <input type="button" value="Invite" />
 </template>
 <template name="task">
     {{#each task}}
@@ -47,5 +50,20 @@
 <template name="createGroup">
     <h2>Create your group</h2>
     <input type="text" placeholder="Name your group"/>
-    <input type="button" value="Create">
+    <input type="button" value="Create" />
 </template>
+
+<template name="joinGroup">
+    <h2>Join this group!</h2>
+    {{#each invitations}}
+        {{> invitationItem}}
+    {{/each}}
+</template>
+
+<template name="invitationItem">
+    <div>Invitation to {{groupName}} <input type="button" value="Join" /></div>
+</template>
+
+
+
+

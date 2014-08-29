@@ -1,6 +1,6 @@
 Task = new Meteor.Collection("task");
 Group = new Meteor.Collection("group");
-
+Invitation = new Meteor.Collection("invitation");
 
 if (Meteor.isClient) {
   Session.setDefault('editing_task_item', null);
@@ -17,6 +17,16 @@ if (Meteor.isClient) {
     var groupId = Meteor.user().profile.groupId;
     return Group.findOne(groupId).name;
   }
+
+  Template.hello.events({
+    'click input[type="button"]': function (e, tmpl) {
+      var email = tmpl.$("input[type='text']").val();
+      Invitation.insert({
+        email: email,
+        groupId: Meteor.user().profile.groupId
+      });
+    }
+  });
 
 
   function parseTask(text) {
@@ -76,7 +86,8 @@ if (Meteor.isClient) {
   }
 
   Template.task.task = function () {
-    return Task.find().fetch();
+    var groupId = Meteor.user().profile.groupId;
+    return Task.find({groupId: groupId}).fetch();
   };
 
   Template.task.events({
@@ -148,6 +159,25 @@ if (Meteor.isClient) {
     }
 
   });
+
+  Template.joinGroup.invitations = function () {
+    // TODO: more emails?
+    var email = Meteor.user().emails[0].address;
+    return Invitation.find({email: email}).fetch();
+  }
+
+  Template.invitationItem.groupName = function () {
+    var group = Group.findOne(this.groupId);
+    return group.name;
+  }
+
+  Template.invitationItem.events({
+    'click input[type="button"]': function () {
+      Meteor.users.update(Meteor.userId(), {$set:
+        {"profile.groupId": this.groupId}
+      });
+    }
+  });
 }
 
 if (Meteor.isServer) {
@@ -171,6 +201,13 @@ if (Meteor.isServer) {
   Group.allow({
     insert: function(userId, doc) {
       return userId != null;
+    }
+  });
+
+  Invitation.allow({
+    insert: function(userId, doc) {
+      return userId != null &&
+        Meteor.users.findOne(userId).profile.groupId === doc.groupId;
     }
   });
 

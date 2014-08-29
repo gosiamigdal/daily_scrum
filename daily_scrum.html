@@ -4,9 +4,17 @@
 </head>
 <body>
     {{> loginButtons}}
-    {{> hello}}
-    {{> task}}
+    {{> main}}
+
 </body>
+<template name="main">
+    {{# if loggedIn}}
+        {{> hello}}
+        {{> task}}
+    {{else}}
+        <h1>Daily scrum</h1>
+    {{/if}}
+</template>
 <template name="hello">
     <h1>Write down what you have done!</h1>
 </template>

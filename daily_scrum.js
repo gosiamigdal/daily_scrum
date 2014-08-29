@@ -4,17 +4,9 @@ Task = new Meteor.Collection("task");
 if (Meteor.isClient) {
   Session.setDefault('editing_task_item', null);
 
-  Template.hello.greeting = function () {
-    return "Welcome to daily_scrum.";
+  Template.main.loggedIn = function () {
+    return Meteor.user() != null;
   };
-
-  Template.hello.events({
-    'click input': function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
 
 
   function parseTask(text) {

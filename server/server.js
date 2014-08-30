@@ -32,6 +32,41 @@ Invitation.allow({
   }
 });
 
+Meteor.users.deny({
+  update: function(userId, doc, fieldNames, modifier) {
+    function hasInvitation(newGroupId) {
+      var email = Meteor.users.findOne(userId).emails[0].address;
+      var foundInvitation = false;
+      Invitation.find({email: email}).forEach(function(invite) {
+        console.log("Meteor.users.deny update() invite '%s', newGroupId '%s'",
+          invite.groupId, newGroupId);
+        if (invite.groupId == newGroupId) {
+          foundInvitation = true;
+        }
+      });
+      return foundInvitation;
+    }
+
+    for (var key in modifier) {
+      for (var field in modifier[key]) {
+        if (field == "profile.groupId") {
+          if (key == "$set") {
+            if (!hasInvitation(modifier[key][field])) {
+              return true;
+            }
+          } else {
+            return true; // don't modify groupId other than set
+          }
+
+          if (field == "profile") {
+            return true; // no changing whole profile at once
+          }
+        }
+      }
+    }
+  }
+});
+
 Meteor.publish("allUsers", function () {
   return Meteor.users.find();
 });

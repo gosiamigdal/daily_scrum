@@ -40,24 +40,25 @@ function parseTask(text) {
     function (r) { return parseInt(r[1]);}
   ]
 
+  var resultTask = {
+    name: text,
+    userId: Meteor.userId(),
+    groupId: Meteor.user().profile.groupId,
+    day: moment().date(),
+    month: moment().month(),
+    year: moment().year()
+  };
+
   for (var i = 0; i < timeRegex.length; i++) {
     var regex = new RegExp(".*?" + timeRegex[i] + ".*");
     var result = regex.exec(text);
     if (result !== null) {
-      return {
-        name: text.replace(new RegExp(timeRegex[i]), ""),
-        minutes: extractTime[i](result),
-        userId: Meteor.userId(),
-        groupId: Meteor.user().profile.groupId
-      };
+      resultTask["name"] = text.replace(new RegExp(timeRegex[i]), "");
+      resultTask["minutesSpent"] = extractTime[i](result);
+      return resultTask;
     }
   }
-
-  return {
-    name: text,
-    userId: Meteor.userId(),
-    groupId: Meteor.user().profile.groupId
-  };
+  return resultTask;
 }
 
 function addTask() {
@@ -103,7 +104,7 @@ Template.task.events({
 Template.task.humanTotalTime = function () {
   var sum = 0;
   Task.find().forEach(function (el) {
-    sum += el.minutes || 0;
+    sum += el.minutesSpent || 0;
   });
   return toHumanTime(sum);
 };
@@ -136,7 +137,7 @@ Template.task_item.editing = function () {
 };
 
 Template.task_item.humanTime = function () {
-  return toHumanTime(this.minutes);
+  return toHumanTime(this.minutesSpent);
 };
 
 Template.task_item.owner = function () {

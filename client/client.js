@@ -13,6 +13,10 @@ Template.hello.groupName = function () {
   return Group.findOne(groupId).name;
 }
 
+Template.hello.date = function () {
+  return "today: " + moment().format("MMM Do YYYY");
+}
+
 Template.hello.events({
   'click input[type="button"]': function (e, tmpl) {
     var email = tmpl.$("input[type='text']").val();

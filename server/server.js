@@ -5,12 +5,12 @@ Meteor.startup(function () {
 Task.allow({
   insert: function(userId, doc) {
     return userId != null &&
-      doc.userId == userId && 
+      doc.userId == userId &&
       Meteor.users.findOne(userId).profile.groupId == doc.groupId;
   },
   update: function(userId, doc, fieldNames, modifier) {
     return doc.userId == userId &&
-      fieldNames.indexOf("groupId") == -1 && 
+      fieldNames.indexOf("groupId") == -1 &&
       fieldNames.indexOf("userId") == -1;
   },
   remove: function(userId, doc) {
@@ -69,4 +69,14 @@ Meteor.users.deny({
 
 Meteor.publish("allUsers", function () {
   return Meteor.users.find();
+});
+
+Accounts.onCreateUser(function(options, user) {
+  if (user.profile == null) {
+    user.profile = {};
+  }
+  if (user.profile.name == null) {
+    user.profile.name = user.emails[0].address;
+  }
+  return user;
 });

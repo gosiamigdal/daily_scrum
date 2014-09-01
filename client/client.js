@@ -173,5 +173,3 @@ Template.invitationItem.events({
     });
   }
 });
-
-  

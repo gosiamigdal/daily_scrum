@@ -21,6 +21,7 @@ Task.allow({
 Group.allow({
   insert: function(userId, doc) {
     return userId != null &&
+      doc.creatorUserId == userId &&
       Meteor.users.findOne(userId).profile.groupId == null;
   }
 });
@@ -28,12 +29,14 @@ Group.allow({
 Invitation.allow({
   insert: function(userId, doc) {
     return userId != null &&
-      Meteor.users.findOne(userId).profile.groupId === doc.groupId;
+      Meteor.users.findOne(userId).profile.groupId == doc.groupId;
   }
 });
 
 Meteor.users.deny({
   update: function(userId, doc, fieldNames, modifier) {
+    console.log("Meteor.users update(%s, %s, %s, %s)",
+      userId, doc, fieldNames, modifier);
     function hasInvitation(newGroupId) {
       var email = Meteor.users.findOne(userId).emails[0].address;
       var foundInvitation = false;
@@ -51,7 +54,9 @@ Meteor.users.deny({
       for (var field in modifier[key]) {
         if (field == "profile.groupId") {
           if (key == "$set") {
-            if (!hasInvitation(modifier[key][field])) {
+            var newGroupId = modifier[key][field];
+            var group = Group.findOne(newGroupId);
+            if (!hasInvitation(newGroupId) && group.creatorUserId != userId) {
               return true;
             }
           } else {

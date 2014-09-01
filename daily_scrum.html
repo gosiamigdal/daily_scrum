@@ -12,6 +12,7 @@
         {{# if hasGroup}}
             {{> hello}}
             {{> task}}
+            {{> calendar}}
         {{else}}
             <h1>Choose your group or create your own!</h1>
             {{> createGroup}}
@@ -22,11 +23,13 @@
         <h1>Daily scrum</h1>
     {{/if}}
 </template>
+
 <template name="hello">
     <h1>{{groupName}} Write down what you have done {{date}}!</h1>
     <input type="text" placeholder="Email address" />
     <input type="button" value="Invite" />
 </template>
+
 <template name="task">
     {{#each task}}
         <p>{{> task_item}}</p>
@@ -62,4 +65,24 @@
 
 <template name="invitationItem">
     <div>Invitation to {{groupName}} <input type="button" value="Join" /></div>
+</template>
+
+<template name="calendar">
+  <div>
+    <h2>{{month}}</h2>
+    <table>
+      <tr>
+        {{#each weekDays}}
+          <th>{{day}}</th>
+        {{/each}}
+      </tr>
+      {{#each weeksOfMonth}}
+        <tr>
+          {{#each daysOfWeek}}
+            <td>{{date}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </table>
+  </div>
 </template>

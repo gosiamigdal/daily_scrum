@@ -31,3 +31,10 @@ Template.calendar.weeksOfMonth = function() {
   } while (m.month() == currentMonth)
   return result;
 }
+
+Template.calendarDay.events({
+  'click td': function() {
+    var m = moment().date(this.date)
+    Session.set("current_date", m.valueOf()); 
+  }
+})

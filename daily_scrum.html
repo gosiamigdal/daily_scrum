@@ -79,10 +79,14 @@
       {{#each weeksOfMonth}}
         <tr>
           {{#each daysOfWeek}}
-            <td>{{date}}</td>
+            {{> calendarDay}}
           {{/each}}
         </tr>
       {{/each}}
     </table>
   </div>
+</template>
+
+<template name="calendarDay">
+  <td>{{date}}</td>
 </template>

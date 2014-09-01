@@ -1,4 +1,5 @@
 Session.setDefault('editing_task_item', null);
+Session.setDefault('current_date', moment().valueOf());
 
 Template.main.loggedIn = function () {
   return Meteor.user() != null;
@@ -14,7 +15,8 @@ Template.hello.groupName = function () {
 }
 
 Template.hello.date = function () {
-  return "today: " + moment().format("MMM Do YYYY");
+  var m = moment(Session.get('current_date'));
+  return "today: " + m.format("MMM Do YYYY");
 }
 
 Template.hello.events({
@@ -40,13 +42,14 @@ function parseTask(text) {
     function (r) { return parseInt(r[1]);}
   ]
 
+  var m = moment(Session.get('current_date'));
   var resultTask = {
     name: text,
     userId: Meteor.userId(),
     groupId: Meteor.user().profile.groupId,
-    day: moment().date(),
-    month: moment().month(),
-    year: moment().year()
+    day: m.date(),
+    month: m.month(),
+    year: m.year()
   };
 
   for (var i = 0; i < timeRegex.length; i++) {
@@ -87,7 +90,7 @@ function toHumanTime(rawMinutes) {
 
 Template.task.task = function () {
   var groupId = Meteor.user().profile.groupId;
-  var m = moment();
+  var m = moment(Session.get('current_date'));
 
   return Task.find({groupId: groupId,
     day: m.date(),

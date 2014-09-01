@@ -88,5 +88,9 @@
 </template>
 
 <template name="calendarDay">
-  <td>{{date}}</td>
+  {{# if selected}}
+    <td class="selected">{{date}}</td>
+  {{else}}
+    <td>{{date}}</td>
+  {{/if}}
 </template>

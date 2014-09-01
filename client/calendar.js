@@ -32,6 +32,12 @@ Template.calendar.weeksOfMonth = function () {
   return result;
 }
 
+Template.calendarDay.selected = function () {
+  var m = moment().date(this.date)
+  var selectedDate = moment(Session.get('current_date'));
+  return m.date() == selectedDate.date();
+}
+
 Template.calendarDay.events({
   'click td': function () {
     var m = moment().date(this.date)

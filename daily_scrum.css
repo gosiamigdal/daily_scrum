@@ -35,3 +35,8 @@ p {
     padding-left: 5px;
     margin: 0 0 0 80px;
 }
+
+.selected {
+  background-color: red;
+  font-weight: bold;
+}

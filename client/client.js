@@ -87,7 +87,12 @@ function toHumanTime(rawMinutes) {
 
 Template.task.task = function () {
   var groupId = Meteor.user().profile.groupId;
-  return Task.find({groupId: groupId}).fetch();
+  var m = moment();
+
+  return Task.find({groupId: groupId,
+    day: m.date(),
+    month: m.month(),
+    year: m.year()}).fetch();
 };
 
 Template.task.events({

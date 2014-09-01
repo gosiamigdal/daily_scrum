@@ -16,7 +16,13 @@ Template.hello.groupName = function () {
 
 Template.hello.date = function () {
   var m = moment(Session.get('current_date'));
-  return "today: " + m.format("MMM Do YYYY");
+  var prefix;
+  if (m.day() == moment().day() && m.year() == moment().year()) {
+    prefix = "today: ";
+  } else {
+    prefix = "on: ";
+  }
+  return prefix + m.format("MMM Do YYYY");
 }
 
 Template.hello.events({

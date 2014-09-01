@@ -22,12 +22,12 @@ Template.hello.date = function () {
   } else {
     prefix = "on: ";
   }
-  return prefix + m.format("MMM Do YYYY");
+  return prefix + m.format('MMM Do YYYY');
 }
 
 Template.hello.events({
   'click input[type="button"]': function (e, tmpl) {
-    var email = tmpl.$("input[type='text']").val();
+    var email = tmpl.$('input[type="text"]').val();
     Invitation.insert({
       email: email,
       groupId: Meteor.user().profile.groupId
@@ -38,9 +38,9 @@ Template.hello.events({
 
 function parseTask(text) {
   var timeRegex = [
-    "([0-9]{1,2})h ?([0-9]{1,2})m",
-    "([0-9]{1,2})h",
-    "([0-9]{1,2})m"
+    '([0-9]{1,2})h ?([0-9]{1,2})m',
+    '([0-9]{1,2})h',
+    '([0-9]{1,2})m'
   ]
   var extractTime = [
     function (r) { return parseInt(r[1]) * 60 + parseInt(r[2]);},
@@ -59,11 +59,11 @@ function parseTask(text) {
   };
 
   for (var i = 0; i < timeRegex.length; i++) {
-    var regex = new RegExp(".*?" + timeRegex[i] + ".*");
+    var regex = new RegExp('.*?' + timeRegex[i] + '.*');
     var result = regex.exec(text);
     if (result !== null) {
-      resultTask["name"] = text.replace(new RegExp(timeRegex[i]), "");
-      resultTask["minutesSpent"] = extractTime[i](result);
+      resultTask['name'] = text.replace(new RegExp(timeRegex[i]), '');
+      resultTask['minutesSpent'] = extractTime[i](result);
       return resultTask;
     }
   }
@@ -73,7 +73,7 @@ function parseTask(text) {
 function addTask() {
   var name = $('input[type="text"].new_item').val();
   Task.insert(parseTask(name));
-  $('input[type="text"].new_item').val("");
+  $('input[type="text"].new_item').val('');
 }
 
 function toHumanTime(rawMinutes) {
@@ -141,7 +141,7 @@ Template.task_item.events({
       Session.set('editing_task_item', null);
     }
   },
-  'focusout input': function() {
+  'focusout input': function () {
     Session.set('editing_task_item', null);
   }
 });
@@ -163,11 +163,11 @@ Meteor.subscribe("allUsers");
 
 Template.createGroup.events({
   'click input[type="button"]': function (e, tmpl) {
-    var name = tmpl.$("input[type='text']").val();
+    var name = tmpl.$('input[type="text"]').val();
     console.log("Creating group" + name);
     var id = Group.insert({name: name, creatorUserId: Meteor.userId()});
     Meteor.users.update(Meteor.userId(), {$set:
-      {"profile.groupId": id}
+      {'profile.groupId': id}
     });
 
   }

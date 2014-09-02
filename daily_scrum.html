@@ -121,7 +121,7 @@
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
       {{#if hasInvitation}}
-        <h2>Join this group!</h2>
+        <h2>Your invitations:</h2>
         {{#each invitations}}
           {{> invitationItem}}
         {{/each}}
@@ -133,7 +133,7 @@
 </template>
 
 <template name="invitationItem">
-    <div>Invitation to {{groupName}} <input type="button" value="Join" /></div>
+    <div>Invitation to Group {{groupName}} from {{sender}}<input type="button" value="Join" /></div>
 </template>
 
 <template name="calendar">

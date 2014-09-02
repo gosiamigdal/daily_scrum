@@ -39,7 +39,8 @@ Template.hello.events({
     var email = tmpl.$('input[type="text"]').val();
     Invitation.insert({
       email: email,
-      groupId: Meteor.user().profile.groupId
+      groupId: Meteor.user().profile.groupId,
+      senderUserId: Meteor.userId()
     });
   }
 });
@@ -183,6 +184,13 @@ Template.createGroup.events({
 
 });
 
+Template.joinGroup.hasInvitation = function () {
+  var email = Meteor.user().emails[0].address;
+  if (Invitation.find({email: email}).count() != 0) {
+    return true;
+  }
+}
+
 Template.joinGroup.invitations = function () {
   // TODO: more emails?
   var email = Meteor.user().emails[0].address;
@@ -192,6 +200,11 @@ Template.joinGroup.invitations = function () {
 Template.invitationItem.groupName = function () {
   var group = Group.findOne(this.groupId);
   return group.name;
+}
+
+Template.invitationItem.sender = function () {
+  var user = Meteor.users.findOne(this.senderUserId);
+  return user.emails[0].address;
 }
 
 Template.invitationItem.events({

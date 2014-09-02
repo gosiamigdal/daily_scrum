@@ -2,12 +2,12 @@
 h1 {
     font-weight: normal;
     padding: 30px;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
-p {
-  /*  font-size: 1.2em;
-    padding-left: 35px; */
+h2 {
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .task_item {
@@ -40,3 +40,38 @@ p {
   background-color: red;
   font-weight: bold;
 }
+
+a.navbar-brand {
+    font-size: 23px;
+}
+
+a {
+    font-size: 18px;
+}
+
+.create-panel {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.create-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.insert-text {
+    border-radius: 6px;
+    margin-right: 25px;
+    padding-right: 35px;
+    padding-top: 8px;
+    padding-bottom: 12px;
+}
+
+input[placeholder] {
+    font-size: 16px;
+}
+
+
+
+
+

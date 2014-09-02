@@ -1,6 +1,6 @@
 <head>
   <title>daily_scrum</title>
-  <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="navbar navbar-default" role="navigation">
@@ -36,7 +36,11 @@
             {{> task}}
             {{> calendar}}
         {{else}}
-            <h1>Choose your group or create your own!</h1>
+            <div class="row">
+                <div class="col-md-offset-2">
+                <h1>Choose your group or create your own!</h1>
+            </div>
+            </div>
             {{> createGroup}}
             {{> joinGroup}}
         {{/if}}
@@ -73,9 +77,25 @@
 </template>
 
 <template name="createGroup">
-    <h2>Create your group</h2>
-    <input type="text" placeholder="Name your group"/>
-    <input type="button" value="Create" />
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-offset-5">
+                    <h2>Create your group</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-7 create-panel">
+            <div class="row">
+                <div class="col-md-offset-1">
+                    <input type="text" class="insert-text" placeholder=" Name your group"/>
+                    <input type="button" value="Create" class="btn btn-success btn-lg create-button"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="joinGroup">

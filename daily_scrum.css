@@ -1,11 +1,10 @@
 /* CSS declarations go here */
-.jumbotron.container h1{
+h1 {
     font-weight: normal;
-    padding: 30px;
     font-family: 'Open Sans', sans-serif;
 }
 
-.jumbotron.container h2 {
+h2 {
     font-weight: normal;
     font-family: 'Open Sans', sans-serif;
 }

@@ -30,19 +30,21 @@
 
 <template name="main">
   {{# if loggedIn}}
+    <div class="container">
       {{# if hasGroup}}
           {{> hello}}
           {{> task}}
           {{> calendar}}
       {{else}}
           <div class="row">
-              <div class="col-md-offset-2">
-              <h1>Choose your group or create your own!</h1>
+            <div class="col-md-offset-2 col-md-8">
+              <h1>Join existing group or create your own!</h1>
+            </div>
           </div>
-          </div>
-          {{> createGroup}}
-          {{> joinGroup}}
+            {{> joinGroup}}
+            {{> createGroup}}
       {{/if}}
+    </div>
   {{else}}
     <div class="jumbotron">
       <div class="container">
@@ -105,29 +107,29 @@
 
 <template name="createGroup">
     <div class="row">
-        <div class="col-md-5 col-lg-5">
-            <div class="row">
-                <div class="col-md-offset-5 col-lg-offset-5">
-                    <h2>Create your group</h2>
-                </div>
-            </div>
+        <div class="col-md-offset-2 col-md-3">
+            <h2>Create your group</h2>
         </div>
-        <div class="col-md-7 col-lg-7 create-panel">
-            <div class="row">
-                <div class="col-md-offset-1 col-lg-offset-1">
-                    <input type="text" class="insert-text" placeholder=" Name your group"/>
-                    <input type="button" value="Create" class="btn btn-success btn-lg create-button"/>
-                </div>
-            </div>
+        <div class="col-md-7 create-panel">
+            <input type="text" class="insert-text" placeholder=" Name your group"/>
+            <input type="button" value="Create" class="btn btn-success btn-lg create-button"/>
         </div>
     </div>
 </template>
 
 <template name="joinGroup">
-    <h2>Join this group!</h2>
-    {{#each invitations}}
-        {{> invitationItem}}
-    {{/each}}
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      {{#if hasInvitation}}
+        <h2>Join this group!</h2>
+        {{#each invitations}}
+          {{> invitationItem}}
+        {{/each}}
+      {{else}}
+         <h2>Ask someone to invite you or create your own group.</h2>
+      {{/if}}
+    </div>
+  </div>
 </template>
 
 <template name="invitationItem">

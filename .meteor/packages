@@ -5,9 +5,8 @@
 
 standard-app-packages
 autopublish
-accounts-ui
 accounts-password
 accounts-github
 mrt:moment
-bootstrap
-
+ian:accounts-ui-bootstrap-3
+ian:bootstrap-3

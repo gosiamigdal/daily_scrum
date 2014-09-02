@@ -1,13 +1,18 @@
 /* CSS declarations go here */
-h1 {
+.jumbotron.container h1{
     font-weight: normal;
     padding: 30px;
     font-family: 'Open Sans', sans-serif;
 }
 
-h2 {
+.jumbotron.container h2 {
     font-weight: normal;
     font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
 }
 
 .task_item {

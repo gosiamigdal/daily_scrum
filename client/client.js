@@ -9,6 +9,15 @@ Template.main.hasGroup = function () {
   return Meteor.user() != null && Meteor.user().profile.groupId != null;
 }
 
+Template.main.events({
+  'click .signup-button': function (event) {
+    event.stopPropagation();
+    $("#login-dropdown-list .dropdown-toggle").dropdown('toggle');
+    $("#signup-link").click();
+    $("#login-email").focus();
+  }
+});
+
 Template.hello.groupName = function () {
   var groupId = Meteor.user().profile.groupId;
   return Group.findOne(groupId).name;

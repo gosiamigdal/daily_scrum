@@ -83,3 +83,7 @@ input[placeholder] {
 .navbar {
   margin-bottom: 0;
 }
+
+#login-dropdown-list .dropdown-menu {
+  min-width: 350px;
+}

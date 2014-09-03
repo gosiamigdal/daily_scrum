@@ -23,7 +23,7 @@ Template.calendar.weeksOfMonth = function () {
       if (m.month() == currentMonth) {
         daysOfWeek.push({date: m.date()});
       } else {
-        daysOfWeek.push({date: " "});
+        daysOfWeek.push({date: ""});
       }
       m.add(1, 'days');
     }
@@ -40,7 +40,9 @@ Template.calendarDay.selected = function () {
 
 Template.calendarDay.events({
   'click td': function () {
-    var m = moment().date(this.date)
-    Session.set('current_date', m.valueOf());
+    if (this.date != "") {
+      var m = moment().date(this.date)
+      Session.set('current_date', m.valueOf());
+    }
   }
 })

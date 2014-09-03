@@ -29,6 +29,7 @@ Group.allow({
 Invitation.allow({
   insert: function (userId, doc) {
     return userId != null &&
+      doc.senderUserId == userId &&
       Meteor.users.findOne(userId).profile.groupId == doc.groupId;
   }
 });

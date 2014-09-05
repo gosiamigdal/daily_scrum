@@ -32,9 +32,15 @@
   {{# if loggedIn}}
     <div class="container">
       {{# if hasGroup}}
-          {{> hello}}
-          {{> task}}
-          {{> calendar}}
+        <div class="row">
+          <div class="col-md-9">
+            {{> hello}}
+            {{> task}}
+          </div>
+          <div class="col-md-3">
+            {{> calendar}}
+          </div>
+        </div>
       {{else}}
           <div class="row">
             <div class="col-md-offset-2 col-md-8">
@@ -137,25 +143,29 @@
 </template>
 
 <template name="calendar">
-  <div>
+  <div class="calendar">
     <h2>
       <abbr class="previous-month" title="Previous month">«</abbr>
       {{month}}
       <abbr class="next-month" title="Next month">»</abbr>
     </h2>
     <table>
-      <tr>
-        {{#each weekDays}}
-          <th>{{day}}</th>
-        {{/each}}
-      </tr>
-      {{#each weeksOfMonth}}
+      <thead>
         <tr>
-          {{#each daysOfWeek}}
-            {{> calendarDay}}
+          {{#each weekDays}}
+            <th>{{day}}</th>
           {{/each}}
         </tr>
-      {{/each}}
+      </thead>
+      <tbody>
+        {{#each weeksOfMonth}}
+          <tr>
+            {{#each daysOfWeek}}
+              {{> calendarDay}}
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
     </table>
   </div>
 </template>

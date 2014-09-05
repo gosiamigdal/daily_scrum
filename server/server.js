@@ -28,9 +28,23 @@ Group.allow({
 
 Invitation.allow({
   insert: function (userId, doc) {
-    return userId != null &&
+    var user = Meteor.users.findOne(userId);
+    var canInsert = userId != null &&
       doc.senderUserId == userId &&
-      Meteor.users.findOne(userId).profile.groupId == doc.groupId;
+      user.profile.groupId == doc.groupId;
+
+    if (canInsert) {
+      Email.send({
+        to: doc.email,
+        from: "daily.scrum@example.com",
+        subject: user.profile.name + " invited you to daily scrum!",
+        text: "Please sign up at " + Meteor.absoluteUrl() + "\n" +
+          "\n" +
+          "Delivered to you by daily scrum"
+      });
+    }
+
+    return canInsert;
   }
 });
 

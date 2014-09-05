@@ -40,9 +40,13 @@ p {
     margin: 0 0 0 80px;
 }
 
-.selected {
+.day.selected {
   background-color: red;
   font-weight: bold;
+}
+
+.day.future {
+  background-color: gray;
 }
 
 a.navbar-brand {

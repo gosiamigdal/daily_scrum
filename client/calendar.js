@@ -1,3 +1,5 @@
+Session.setDefault('current_date', moment().valueOf());
+
 Template.calendar.month = function () {
   return moment().format('MMMM');
 }
@@ -14,6 +16,7 @@ Template.calendar.weekDays = function () {
 Template.calendar.weeksOfMonth = function () {
   var result = [];
   var m = moment();
+  var currentDay = m.date();
   var currentMonth = m.month();
   m.date(1);
   m.day(0);
@@ -21,7 +24,14 @@ Template.calendar.weeksOfMonth = function () {
     var daysOfWeek = [];
     for (var i = 0; i < 7; i++) {
       if (m.month() == currentMonth) {
-        daysOfWeek.push({date: m.date()});
+        var clazz = "day";
+        if (m.date() > currentDay) {
+          clazz += " future";
+        }
+        if (moment(Session.get('current_date')).date() == m.date()) {
+          clazz += " selected";
+        }
+        daysOfWeek.push({date: m.date(), attr: {class: clazz}});
       } else {
         daysOfWeek.push({date: ""});
       }
@@ -30,12 +40,6 @@ Template.calendar.weeksOfMonth = function () {
     result.push({daysOfWeek: daysOfWeek});
   } while (m.month() == currentMonth)
   return result;
-}
-
-Template.calendarDay.selected = function () {
-  var m = moment().date(this.date)
-  var selectedDate = moment(Session.get('current_date'));
-  return m.date() == selectedDate.date();
 }
 
 Template.calendarDay.events({

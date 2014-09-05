@@ -87,14 +87,14 @@
 
 <template name="task">
     {{#each task}}
-        <p>{{> task_item}}</p>
+        <p>{{> taskItem}}</p>
     {{/each}}
     <p>Total time: {{humanTotalTime}}</p>
     <input class="new_item" type="text" placeholder="What you have done?" />
     <input type="button" value="Add task" />
 </template>
 
-<template name="task_item">
+<template name="taskItem">
     <div class="task_item">
         <div class="remove">Remove</div>
         {{# if editing}}

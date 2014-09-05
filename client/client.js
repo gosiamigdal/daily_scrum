@@ -136,7 +136,7 @@ Template.task.humanTotalTime = function () {
   return toHumanTime(sum);
 };
 
-Template.task_item.events({
+Template.taskItem.events({
   'click .remove': function () {
     var id = this._id;
     Task.remove(id);
@@ -159,15 +159,15 @@ Template.task_item.events({
   }
 });
 
-Template.task_item.editing = function () {
+Template.taskItem.editing = function () {
   return Session.equals('editing_task_item', this._id);
 };
 
-Template.task_item.humanTime = function () {
+Template.taskItem.humanTime = function () {
   return toHumanTime(this.minutesSpent);
 };
 
-Template.task_item.owner = function () {
+Template.taskItem.owner = function () {
   var owner = Meteor.users.findOne({_id: this.userId});
   return owner && owner.profile.name;
 };

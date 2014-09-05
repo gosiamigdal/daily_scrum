@@ -1,5 +1,4 @@
 Session.setDefault('editing_task_item', null);
-Session.setDefault('current_date', moment().valueOf());
 
 Template.main.loggedIn = function () {
   return Meteor.user() != null;
@@ -34,7 +33,7 @@ Template.hello.date = function () {
   return prefix + m.format('MMM Do YYYY');
 }
 
-Template.hello.events({
+Template.team.events({
   'click input[type="button"]': function (e, tmpl) {
     var email = tmpl.$('input[type="text"]').val();
     Invitation.insert({

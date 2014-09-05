@@ -39,6 +39,7 @@
           </div>
           <div class="col-md-3">
             {{> calendar}}
+            {{> team}}
           </div>
         </div>
       {{else}}
@@ -87,8 +88,12 @@
 
 <template name="hello">
     <h1>{{groupName}} Write down what you have done {{date}}!</h1>
-    <input type="text" placeholder="Email address" />
-    <input type="button" value="Invite" />
+</template>
+
+<template name="team">
+  <h2>People</h2>
+  <input type="text" placeholder="Email address" />
+  <input type="button" value="Invite" />
 </template>
 
 <template name="task">

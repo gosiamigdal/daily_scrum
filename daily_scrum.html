@@ -138,7 +138,11 @@
 
 <template name="calendar">
   <div>
-    <h2>{{month}}</h2>
+    <h2>
+      <abbr class="previous-month" title="Previous month">«</abbr>
+      {{month}}
+      <abbr class="next-month" title="Next month">»</abbr>
+    </h2>
     <table>
       <tr>
         {{#each weekDays}}

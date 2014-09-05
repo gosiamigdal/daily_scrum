@@ -127,7 +127,10 @@ Template.task.events({
 
 Template.task.humanTotalTime = function () {
   var sum = 0;
-  Task.find().forEach(function (el) {
+  var m = moment(Session.get('current_date'));
+  Task.find({day: m.date(),
+      month: m.month(),
+      year: m.year()}).forEach(function (el) {
     sum += el.minutesSpent || 0;
   });
   return toHumanTime(sum);

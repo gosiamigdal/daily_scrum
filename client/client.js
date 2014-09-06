@@ -142,14 +142,17 @@ Template.taskItem.events({
   },
   'dblclick p': function (e, tmpl) {
     Session.set('editing_task_item', this._id);
-    Deps.flush();
+    Tracker.flush();
     var el = tmpl.$(":parent input");
     el.focus();
   },
   'keyup input': function (event) {
     if (event.which === 13) { // enter key
       var value = event.target.value;
-      Task.update(this._id, {$set: parseTask(value)});
+      var updatedTask = parseTask(value);
+      delete updatedTask.userId;
+      delete updatedTask.groupId;
+      Task.update(this._id, {$set: updatedTask});
       Session.set('editing_task_item', null);
     }
   },

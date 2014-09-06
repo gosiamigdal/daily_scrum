@@ -1,0 +1,32 @@
+.calendar {
+  position: relative;
+}
+
+.calendar .previous-month {
+  position: absolute;
+  left: 0;
+}
+
+.calendar .next-month {
+  position: absolute;
+  right: 0;
+}
+
+.calendar h2 {
+  text-align: center;
+  font-size: 250%;
+}
+
+.calendar table td, .calendar table th {
+  padding: 5px;
+  text-align: center;
+}
+
+.calendar .day.future {
+  background-color: #c8c8c8;
+}
+
+.calendar .day.selected {
+  background-color: #1d98f2;
+  font-weight: bold;
+}

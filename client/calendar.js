@@ -4,6 +4,18 @@ var selectedMoment = function () {
   return moment(Session.get('current_date'));
 }
 
+var setSelectedMoment = function (m) {
+  var today = moment();
+  var selectedToday = today.year() == m.year() &&
+    today.month() == m.month() &&
+    today.date() == m.date()
+  if (selectedToday) {
+    Router.go('done');
+  } else {
+    Router.go('doneOn', {_date: m.format('YYYY-MM-DD')});
+  }
+}
+
 Template.calendar.month = function () {
   return selectedMoment().format('MMMM');
 }
@@ -52,13 +64,13 @@ Template.calendar.events({
     var m = selectedMoment();
     m.date(1);
     m.subtract(1, 'month');
-    Session.set('current_date', m.valueOf());
+    setSelectedMoment(m);
   },
   'click .next-month': function () {
     var m = selectedMoment();
     m.date(1);
     m.add(1, 'month');
-    Session.set('current_date', m.valueOf());
+    setSelectedMoment(m);
   }
 });
 
@@ -66,7 +78,7 @@ Template.calendarDay.events({
   'click td': function () {
     if (this.date != "") {
       var m = selectedMoment().date(this.date)
-      Session.set('current_date', m.valueOf());
+      setSelectedMoment(m);
     }
   }
 })

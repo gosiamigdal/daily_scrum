@@ -6,7 +6,6 @@ Tracker.autorun(function () {
   }
 
   var route = Router.current().route.name;
-  console.log('User ready %s %s', Meteor.user(), route);
   if (Meteor.user() == null) {
     if (route != 'home') {
       Router.go('home');
@@ -23,7 +22,7 @@ Tracker.autorun(function () {
       }
     }
   }
-})
+});
 
 Template._loginButtonsLoggedInDropdown.events({
   'click #login-buttons-edit-profile': function (event) {

@@ -1,0 +1,38 @@
+<template name="setup">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <h1>Join existing group or create your own!</h1>
+      </div>
+    </div>
+    {{> joinGroup}}
+    {{> createGroup}}
+  </div>
+</template>
+
+<template name="joinGroup">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      {{#if hasInvitation}}
+        <h2>Your invitations:</h2>
+        {{#each invitations}}
+          {{> invitationItem}}
+        {{/each}}
+      {{else}}
+         <h2>Ask someone to invite you or create your own group.</h2>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="createGroup">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-3">
+      <h2>Create your group</h2>
+    </div>
+    <div class="col-md-7 create-panel">
+      <input type="text" class="insert-text" placeholder=" Name your group"/>
+      <input type="button" value="Create" class="btn btn-success btn-lg create-button"/>
+    </div>
+  </div>
+</template>

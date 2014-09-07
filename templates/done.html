@@ -1,0 +1,48 @@
+<template name="done">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        {{> hello}}
+        {{> task}}
+      </div>
+      <div class="col-md-3">
+        {{> calendar}}
+        {{> team}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="hello">
+    <h1>{{groupName}} Write down what you have done {{date}}!</h1>
+</template>
+
+<template name="team">
+  <h2>People</h2>
+  <input type="text" placeholder="Email address" />
+  <input type="button" value="Invite" />
+</template>
+
+<template name="task">
+    {{#each task}}
+        <p>{{> taskItem}}</p>
+    {{/each}}
+    <p>Total time: {{humanTotalTime}}</p>
+    <input class="new_item" type="text" placeholder="What you have done?" />
+    <input type="button" value="Add task" />
+</template>
+
+<template name="taskItem">
+    <div class="task_item">
+        <div class="remove">Remove</div>
+        {{# if editing}}
+            <input type="text" value="{{name}}" />
+        {{else}}
+            <p>Time: {{humanTime}}, {{name}} by {{owner}}</p>
+        {{/if}}
+    </div>
+</template>
+
+<template name="invitationItem">
+    <div>Invitation to Group {{groupName}} from {{sender}}<input type="button" value="Join" /></div>
+</template>

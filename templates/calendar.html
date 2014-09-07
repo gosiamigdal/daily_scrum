@@ -1,0 +1,31 @@
+<template name="calendar">
+  <div class="calendar">
+    <h2>
+      <abbr class="previous-month" title="Previous month">«</abbr>
+      {{month}}
+      <abbr class="next-month" title="Next month">»</abbr>
+    </h2>
+    <table>
+      <thead>
+        <tr>
+          {{#each weekDays}}
+            <th>{{day}}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weeksOfMonth}}
+          <tr>
+            {{#each daysOfWeek}}
+              {{> calendarDay}}
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="calendarDay">
+  <td {{attr}}>{{date}}</td>
+</template>

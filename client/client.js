@@ -15,6 +15,9 @@ Tracker.autorun(function () {
       Router.go('home');
     }
   } else {
+    if (route == 'profileEdit') {
+      return;
+    }
     var hasGroup = Meteor.user().profile.groupId != null;
     if (hasGroup) {
       if (route != 'done' && route != 'doneOn') {
@@ -30,9 +33,10 @@ Tracker.autorun(function () {
 
 Template._loginButtonsLoggedInDropdown.events({
   'click #login-buttons-edit-profile': function (event) {
+    console.log("Event trigerred");
     event.stopPropagation();
     Template._loginButtons.toggleDropdown();
-    //Router.go('profileEdit');
+    Router.go('profileEdit');
   }
 });
 

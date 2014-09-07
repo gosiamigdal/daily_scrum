@@ -33,9 +33,6 @@ Tracker.autorun(function () {
 
 Template._loginButtonsLoggedInDropdown.events({
   'click #login-buttons-edit-profile': function (event) {
-    console.log("Event trigerred");
-    event.stopPropagation();
-    Template._loginButtons.toggleDropdown();
     Router.go('profileEdit');
   }
 });

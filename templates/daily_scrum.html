@@ -22,10 +22,17 @@
           <ul class="nav navbar-nav navbar-right">
               {{> loginButtons}}
           </ul>
+          {{> avatar}}
       </div>
     </div>
   </div>
 </body>
+
+<template name="avatar">
+  {{# if hasAvatar}}
+    <img class="navbar-right" src="{{avatarUrl}}" />
+  {{/if}}
+</template>
 
 <template name="_loginButtonsAdditionalLoggedInDropdownActions">
     <button class="btn btn-default btn-block" id="login-buttons-edit-profile">Edit profile</button>

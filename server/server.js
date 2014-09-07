@@ -95,8 +95,36 @@ Accounts.onCreateUser(function (options, user) {
   if (user.profile == null) {
     user.profile = {};
   }
+  if (user.services != null && user.services.github != null) {
+    // User signed up with Github
+    user.emails = [{
+      address: user.services.github.email,
+      verified: true
+    }];
+
+    try {
+      var result = HTTP.get("https://api.github.com/user",
+        {params: {access_token: user.services.github.accessToken},
+        headers: {"User-Agent": "DailyScrumApp"}});
+
+      if (result.statusCode == 200) {
+        user.profile.avatarUrl = result.data.avatar_url;
+      } else {
+        console.log("ERROR: Can't fetch avatar from github. Wrong status code.");
+        console.log(result);
+      }
+    } catch (e) {
+      // No-op: we don't care if we can't get user avatar.
+      console.log("ERROR: Can't fetch avatar from github");
+      console.log(e);
+    }
+  }
   if (user.profile.name == null) {
     user.profile.name = user.emails[0].address;
   }
   return user;
 });
+
+
+
+

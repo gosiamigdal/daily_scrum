@@ -12,6 +12,9 @@ Template.createGroup.events({
 });
 
 Template.joinGroup.hasInvitation = function () {
+  if (Meteor.user() == null) {
+    return false;
+  }
   var email = Meteor.user().emails[0].address;
   if (Invitation.find({email: email}).count() != 0) {
     return true;

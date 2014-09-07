@@ -31,6 +31,14 @@ Tracker.autorun(function () {
   }
 });
 
+Template.avatar.hasAvatar = function () {
+  return Meteor.user() != null && Meteor.user().profile.avatarUrl != null;
+}
+
+Template.avatar.avatarUrl = function () {
+  return Meteor.user().profile.avatarUrl + "&size=50";
+}
+
 Template._loginButtonsLoggedInDropdown.events({
   'click #login-buttons-edit-profile': function (event) {
     Router.go('profileEdit');

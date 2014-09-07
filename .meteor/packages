@@ -12,4 +12,5 @@ ian:accounts-ui-bootstrap-3
 ian:bootstrap-3
 email
 iron:router
+http
 

@@ -1,9 +1,5 @@
 Session.setDefault('editing_task_item', null);
 
-Template.main.loggedIn = function () {
-  return Meteor.user() != null;
-};
-
 Template.main.hasGroup = function () {
   return Meteor.user() != null && Meteor.user().profile.groupId != null;
 }
@@ -225,5 +221,11 @@ Template._loginButtonsLoggedInDropdown.events({
     event.stopPropagation();
     Template._loginButtons.toggleDropdown();
     //Router.go('profileEdit');
+  }
+});
+
+Accounts.ui.config({
+  requestPermissions: {
+    github: ['user:email']
   }
 });

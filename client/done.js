@@ -1,4 +1,7 @@
 Template.hello.groupName = function () {
+  if (Meteor.user() == null) {
+    return "";
+  }
   var groupId = Meteor.user().profile.groupId;
   return Group.findOne(groupId).name;
 }
@@ -84,6 +87,9 @@ function toHumanTime(rawMinutes) {
 }
 
 Template.task.task = function () {
+  if (Meteor.user() == null) {
+    return [];
+  }
   var groupId = Meteor.user().profile.groupId;
   var m = moment(Session.get('current_date'));
 

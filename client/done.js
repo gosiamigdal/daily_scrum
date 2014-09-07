@@ -1,3 +1,5 @@
+Session.setDefault('editing_task_item', null);
+
 Template.hello.groupName = function () {
   if (Meteor.user() == null) {
     return "";

@@ -1,15 +1,29 @@
-Session.setDefault('editing_task_item', null);
+var users = Meteor.subscribe("allUsers");
 
-Template.home.events({
-  'click .signup-button': function (event) {
-    event.stopPropagation();
-    $("#login-dropdown-list .dropdown-toggle").dropdown('toggle');
-    $("#signup-link").click();
-    $("#login-email").focus();
+Tracker.autorun(function () {
+  if (Router.current() == null || !users.ready()) {
+    return;
   }
-});
 
-Meteor.subscribe("allUsers");
+  var route = Router.current().route.name;
+  console.log('User ready %s %s', Meteor.user(), route);
+  if (Meteor.user() == null) {
+    if (route != 'home') {
+      Router.go('home');
+    }
+  } else {
+    var hasGroup = Meteor.user().profile.groupId != null;
+    if (hasGroup) {
+      if (route != 'done' && route != 'doneOn') {
+        Router.go('done');
+      }
+    } else {
+      if (route != 'setup') {
+        Router.go('setup');
+      }
+    }
+  }
+})
 
 Template._loginButtonsLoggedInDropdown.events({
   'click #login-buttons-edit-profile': function (event) {

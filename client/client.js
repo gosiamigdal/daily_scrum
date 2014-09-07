@@ -6,6 +6,10 @@ Tracker.autorun(function () {
   }
 
   var route = Router.current().route.name;
+  if (route == 'about') {
+    return;
+  }
+
   if (Meteor.user() == null) {
     if (route != 'home') {
       Router.go('home');

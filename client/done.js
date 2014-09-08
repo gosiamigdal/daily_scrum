@@ -246,3 +246,14 @@ Template.taskItem.timeMinutes = function () {
   }
 };
 
+Template.taskItem.isMine = function () {
+  if (Meteor.userId() == this.userId) {
+    return "mine";
+  } else {
+    return "";
+  }
+}
+
+
+
+

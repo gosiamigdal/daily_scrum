@@ -37,7 +37,7 @@
   display: none;
 }
 
-.task-item:hover .glyphicon {
+.task-item:hover .glyphicon.mine {
   display: block;
 }
 

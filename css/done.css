@@ -48,3 +48,14 @@
 .task-item .time {
   padding-right: 8px;
 }
+
+.team ul {
+  list-style: none;
+  padding: 0px;
+}
+
+.team li {
+  padding: 10px 0;
+}
+
+

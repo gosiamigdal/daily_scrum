@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.calendar th {
+  font-weight: normal;
+}
+
 .calendar .previous-month {
   position: absolute;
   left: 0;

@@ -19,7 +19,7 @@
 
 <template name="team">
   <div class="team">
-    <h2>Team</h2>
+    <h3>Team</h3>
     <ul>
       {{# each members}}
         {{> teamMember}}
@@ -49,8 +49,8 @@
 </template>
 
 <template name="taskDoneBy">
-  <p>{{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
-  {{userName}}, Total time: {{humanTotalTime}}</p>
+  <h3>{{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
+  {{userName}}, Total time: {{humanTotalTime}}</h3>
   <table class="task">
     {{#each task}}
       {{> taskItem}}

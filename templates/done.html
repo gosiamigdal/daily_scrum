@@ -19,11 +19,23 @@
 
 <template name="team">
   <div class="team">
-    <h2>People</h2>
+    <h2>Team</h2>
+    <ul>
+      {{# each members}}
+        {{> teamMember}}
+      {{/each}}
+    </ul>
     <input type="text" placeholder="Email address" />
     <input type="button" value="Invite" />
     <p class="added-message" style="display: none;">You have added {{addedEmail}}</p>
   </div>
+</template>
+
+<template name="teamMember">
+  <li>
+    {{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
+    <span title="{{email}}">{{name}}</span>
+  </li>
 </template>
 
 <template name="task">

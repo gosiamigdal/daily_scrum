@@ -47,6 +47,31 @@ Template.team.events({
   }
 });
 
+Template.team.members = function () {
+  if (Meteor.user() != null) {
+    return Meteor.users.find({"profile.groupId":
+      Meteor.user().profile.groupId}).fetch();
+  } else {
+    return [];
+  }
+}
+
+Template.teamMember.hasAvatar = function () {
+  return this.profile.avatarUrl != null;
+}
+
+Template.teamMember.avatarUrl = function () {
+  return this.profile.avatarUrl + '&size=50';
+}
+
+Template.teamMember.name = function () {
+  return this.profile.name;
+}
+
+Template.teamMember.email = function () {
+  return this.emails[0].address;
+}
+
 function parseTask(text) {
   var timeRegex = [
     '([0-9]{1,2})h ?([0-9]{1,2})m',

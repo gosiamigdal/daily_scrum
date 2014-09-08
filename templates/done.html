@@ -18,9 +18,12 @@
 </template>
 
 <template name="team">
-  <h2>People</h2>
-  <input type="text" placeholder="Email address" />
-  <input type="button" value="Invite" />
+  <div class="team">
+    <h2>People</h2>
+    <input type="text" placeholder="Email address" />
+    <input type="button" value="Invite" />
+    <p class="added-message" style="display: none;">You have added {{addedEmail}}</p>
+  </div>
 </template>
 
 <template name="task">

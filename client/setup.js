@@ -26,3 +26,21 @@ Template.joinGroup.invitations = function () {
   var email = Meteor.user().emails[0].address;
   return Invitation.find({email: email}).fetch();
 }
+
+Template.invitationItem.groupName = function () {
+  var group = Group.findOne(this.groupId);
+  return group.name;
+}
+
+Template.invitationItem.sender = function () {
+  var user = Meteor.users.findOne(this.senderUserId);
+  return user.emails[0].address;
+}
+
+Template.invitationItem.events({
+  'click input[type="button"]': function () {
+    Meteor.users.update(Meteor.userId(), {$set:
+      {"profile.groupId": this.groupId}
+    });
+  }
+});

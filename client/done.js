@@ -1,4 +1,5 @@
 Session.setDefault('editing_task_item', null);
+Session.setDefault('added_team_email', "");
 
 Template.hello.groupName = function () {
   if (Meteor.user() == null) {
@@ -19,14 +20,30 @@ Template.hello.date = function () {
   return prefix + m.format('MMM Do YYYY');
 }
 
+Template.team.addedEmail = function () {
+  return Session.get('added_team_email');
+}
+
+var inviteNewMember = function (tmpl) {
+  var email = tmpl.$('input[type="text"]').val();
+  Invitation.insert({
+    email: email,
+    groupId: Meteor.user().profile.groupId,
+    senderUserId: Meteor.userId()
+  });
+  Session.set('added_team_email', email);
+  tmpl.$('.added-message').show().fadeOut(4000);
+  tmpl.$('input[type="text"]').val("");
+}
+
 Template.team.events({
+  'keyup input[type="text"]': function (e, tmpl) {
+    if (e.which == 13) {
+      inviteNewMember(tmpl);
+    }
+  },
   'click input[type="button"]': function (e, tmpl) {
-    var email = tmpl.$('input[type="text"]').val();
-    Invitation.insert({
-      email: email,
-      groupId: Meteor.user().profile.groupId,
-      senderUserId: Meteor.userId()
-    });
+    inviteNewMember(tmpl);
   }
 });
 
@@ -161,21 +178,3 @@ Template.taskItem.owner = function () {
   var owner = Meteor.users.findOne({_id: this.userId});
   return owner && owner.profile.name;
 };
-
-Template.invitationItem.groupName = function () {
-  var group = Group.findOne(this.groupId);
-  return group.name;
-}
-
-Template.invitationItem.sender = function () {
-  var user = Meteor.users.findOne(this.senderUserId);
-  return user.emails[0].address;
-}
-
-Template.invitationItem.events({
-  'click input[type="button"]': function () {
-    Meteor.users.update(Meteor.userId(), {$set:
-      {"profile.groupId": this.groupId}
-    });
-  }
-});

@@ -1,4 +1,50 @@
+.container.task-container {
+  margin-top: 25px;
+}
+
 .team .added-message {
   color: green;
   font-size: 120%;
+}
+
+.new_item {
+  width: 600px;
+  height: 35px;
+}
+
+.add-task-button {
+  height: 35px;
+  padding: 0 15px;
+}
+
+.new-task {
+  margin: 25px 0px 20px 0px;
+}
+
+.task {
+  max-width: 730px;
+}
+
+.task .task-description {
+  width: 100%;
+}
+
+.task .task-description input {
+  width: 100%;
+}
+
+.task-item .glyphicon {
+  display: none;
+}
+
+.task-item:hover .glyphicon {
+  display: block;
+}
+
+.task .glyphicon {
+  padding: 5px;
+}
+
+.task-item .time {
+  padding-right: 8px;
 }

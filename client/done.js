@@ -13,9 +13,9 @@ Template.hello.date = function () {
   var m = moment(Session.get('current_date'));
   var prefix;
   if (m.day() == moment().day() && m.year() == moment().year()) {
-    prefix = "today: ";
+    prefix = "Today ";
   } else {
-    prefix = "on: ";
+    prefix = "On ";
   }
   return prefix + m.format('MMM Do YYYY');
 }
@@ -130,18 +130,50 @@ function toHumanTime(rawMinutes) {
   }
 }
 
-Template.task.task = function () {
+Template.task.members = function () {
   if (Meteor.user() == null) {
     return [];
   }
   var groupId = Meteor.user().profile.groupId;
+  var users = Meteor.users.find({'profile.groupId': groupId}).fetch();
+
+  var ourPosition;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i]._id == Meteor.userId()) {
+      ourPosition = i;
+      break;
+    }
+  }
+
+  // swap
+  var tmp = users[0];
+  users[0] = users[ourPosition];
+  users[ourPosition] = tmp;
+
+  return users;
+}
+
+Template.taskDoneBy.userName = function () {
+  return this.profile.name;
+}
+
+Template.taskDoneBy.task = function () {
   var m = moment(Session.get('current_date'));
 
-  return Task.find({groupId: groupId,
+  return Task.find({userId: this._id,
     day: m.date(),
     month: m.month(),
     year: m.year()}).fetch();
 };
+
+
+Template.taskDoneBy.hasAvatar = function () {
+  return this.profile.avatarUrl != null;
+}
+
+Template.taskDoneBy.avatarUrl = function () {
+  return this.profile.avatarUrl + '&size=50';
+}
 
 Template.task.events({
   'keyup .new_item': function () {
@@ -154,10 +186,11 @@ Template.task.events({
   }
 });
 
-Template.task.humanTotalTime = function () {
+Template.taskDoneBy.humanTotalTime = function () {
   var sum = 0;
   var m = moment(Session.get('current_date'));
-  Task.find({day: m.date(),
+  Task.find({userId: this._id,
+      day: m.date(),
       month: m.month(),
       year: m.year()}).forEach(function (el) {
     sum += el.minutesSpent || 0;
@@ -170,7 +203,7 @@ Template.taskItem.events({
     var id = this._id;
     Task.remove(id);
   },
-  'dblclick p': function (e, tmpl) {
+  'click .edit': function (e, tmpl) {
     Session.set('editing_task_item', this._id);
     Tracker.flush();
     var el = tmpl.$(":parent input");
@@ -195,11 +228,21 @@ Template.taskItem.editing = function () {
   return Session.equals('editing_task_item', this._id);
 };
 
-Template.taskItem.humanTime = function () {
-  return toHumanTime(this.minutesSpent);
+Template.taskItem.timeHours = function () {
+  var hours = Math.floor(this.minutesSpent / 60);
+  if (hours > 0) {
+    return hours + "h";
+  } else {
+    return "";
+  }
 };
 
-Template.taskItem.owner = function () {
-  var owner = Meteor.users.findOne({_id: this.userId});
-  return owner && owner.profile.name;
+Template.taskItem.timeMinutes = function () {
+  var minutes = this.minutesSpent % 60;
+  if (minutes > 0) {
+    return minutes + "m";
+  } else {
+    return "";
+  }
 };
+

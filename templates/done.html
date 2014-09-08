@@ -1,11 +1,11 @@
 <template name="done">
-  <div class="container">
+  <div class="container task-container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-9 col-lg-9">
         {{> hello}}
         {{> task}}
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-lg-3">
         {{> calendar}}
         {{> team}}
       </div>
@@ -14,7 +14,7 @@
 </template>
 
 <template name="hello">
-    <h1>{{groupName}} Write down what you have done {{date}}!</h1>
+    <h1>{{date}} {{groupName}} have done:</h1>
 </template>
 
 <template name="team">
@@ -39,23 +39,43 @@
 </template>
 
 <template name="task">
+  <div class="new-task">
+    <input class="new_item" type="text" placeholder="E.g. 1h 30m Prepared presentation" />
+    <input type="button" value="Add done task" class="add-task-button" />
+  </div>
+  {{# each members}}
+    {{> taskDoneBy}}
+  {{/each}} 
+</template>
+
+<template name="taskDoneBy">
+  <p>{{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
+  {{userName}}, Total time: {{humanTotalTime}}</p>
+  <table class="task">
     {{#each task}}
-        <p>{{> taskItem}}</p>
+      {{> taskItem}}
     {{/each}}
-    <p>Total time: {{humanTotalTime}}</p>
-    <input class="new_item" type="text" placeholder="What you have done?" />
-    <input type="button" value="Add task" />
+  </table>
 </template>
 
 <template name="taskItem">
-    <div class="task_item">
-        <div class="remove">Remove</div>
-        {{# if editing}}
-            <input type="text" value="{{name}}" />
-        {{else}}
-            <p>Time: {{humanTime}}, {{name}} by {{owner}}</p>
-        {{/if}}
-    </div>
+  <tr class="task-item">
+    <td><p class="time">{{timeHours}}</p></td>
+    <td><p class="time">{{timeMinutes}}</p></td>
+    <td class="task-description">
+      {{# if editing}}
+        <input type="text" value="{{name}}" />
+      {{else}}
+        <p>{{name}}</p>
+      {{/if}}
+    </td>
+    <td>
+      <span title="Edit" class="glyphicon glyphicon-pencil edit"></span>
+    </td>
+    <td>
+      <span title="Remove" class="glyphicon glyphicon-remove remove"></span>
+    </td>
+  </tr>
 </template>
 
 <template name="invitationItem">

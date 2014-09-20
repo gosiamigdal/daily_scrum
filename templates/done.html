@@ -25,10 +25,22 @@
         {{> teamMember}}
       {{/each}}
     </ul>
+    <div>
+      <h3 id="team-invitations-header" class="collapsed" data-toggle="collapse" data-target="#team-invitations">Sent {{invitationNumber}} invitations</h3>
+      <ul id="team-invitations" class="collapse">
+        {{# each invitations}}
+          {{> teamInvitation}}
+        {{/each}}
+      </ul>
+    </div>
     <input type="text" placeholder="Email address" />
     <input type="button" value="Invite" />
     <p class="added-message" style="display: none;">You have added {{addedEmail}}</p>
   </div>
+</template>
+
+<template name="teamInvitation">
+  <li>{{email}}</li>
 </template>
 
 <template name="teamMember">
@@ -45,7 +57,7 @@
   </div>
   {{# each members}}
     {{> taskDoneBy}}
-  {{/each}} 
+  {{/each}}
 </template>
 
 <template name="taskDoneBy">

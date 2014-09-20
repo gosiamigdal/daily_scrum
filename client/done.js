@@ -20,6 +20,22 @@ Template.hello.date = function () {
   return prefix + m.format('MMM Do YYYY');
 }
 
+Template.team.invitationNumber = function () {
+  if (Meteor.user() == null) {
+    return 0;
+  }
+  var groupId = Meteor.user().profile.groupId;
+  return Invitation.find({groupId: groupId}).count();
+}
+
+Template.team.invitations = function () {
+  if (Meteor.user() == null) {
+    return [];
+  }
+  var groupId = Meteor.user().profile.groupId;
+  return Invitation.find({groupId: groupId}).fetch();
+}
+
 Template.team.addedEmail = function () {
   return Session.get('added_team_email');
 }

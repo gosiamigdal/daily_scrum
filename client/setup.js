@@ -42,5 +42,6 @@ Template.invitationItem.events({
     Meteor.users.update(Meteor.userId(), {$set:
       {"profile.groupId": this.groupId}
     });
+    Invitation.remove(this._id);
   }
 });

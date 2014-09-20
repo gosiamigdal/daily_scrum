@@ -45,6 +45,10 @@ Invitation.allow({
     }
 
     return canInsert;
+  },
+  remove: function (userId, doc) {
+    var user = Meteor.users.findOne(userId);
+    return user.profile.groupId == doc.groupId;
   }
 });
 

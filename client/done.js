@@ -61,7 +61,7 @@ Template.teamMember.hasAvatar = function () {
 }
 
 Template.teamMember.avatarUrl = function () {
-  return this.profile.avatarUrl + '&size=50';
+  return this.profile.avatarUrl;
 }
 
 Template.teamMember.name = function () {
@@ -172,7 +172,7 @@ Template.taskDoneBy.hasAvatar = function () {
 }
 
 Template.taskDoneBy.avatarUrl = function () {
-  return this.profile.avatarUrl + '&size=50';
+  return this.profile.avatarUrl;
 }
 
 Template.task.events({
@@ -253,7 +253,3 @@ Template.taskItem.isMine = function () {
     return "";
   }
 }
-
-
-
-

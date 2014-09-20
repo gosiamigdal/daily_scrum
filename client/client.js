@@ -36,7 +36,7 @@ Template.avatar.hasAvatar = function () {
 }
 
 Template.avatar.avatarUrl = function () {
-  return Meteor.user().profile.avatarUrl + "&size=50";
+  return Meteor.user().profile.avatarUrl;
 }
 
 Template._loginButtonsLoggedInDropdown.events({

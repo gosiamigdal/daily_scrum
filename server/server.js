@@ -95,6 +95,7 @@ Accounts.onCreateUser(function (options, user) {
   if (user.profile == null) {
     user.profile = {};
   }
+
   if (user.services != null && user.services.github != null) {
     // User signed up with Github
     user.emails = [{
@@ -108,7 +109,7 @@ Accounts.onCreateUser(function (options, user) {
         headers: {"User-Agent": "DailyScrumApp"}});
 
       if (result.statusCode == 200) {
-        user.profile.avatarUrl = result.data.avatar_url;
+        user.profile.avatarUrl = result.data.avatar_url + '&size=50';
       } else {
         console.log("ERROR: Can't fetch avatar from github. Wrong status code.");
         console.log(result);
@@ -119,12 +120,21 @@ Accounts.onCreateUser(function (options, user) {
       console.log(e);
     }
   }
+
   if (user.profile.name == null) {
     user.profile.name = user.emails[0].address;
   }
+
+  if (user.profile.avatarUrl == null) {
+    var randomNum = Math.floor(Math.random() * 16) + 1;
+    var randomStr;
+    if (randomNum < 10) {
+      randomStr = "0" + randomNum;
+    } else {
+      randomStr = "" + randomNum;
+    }
+    user.profile.avatarUrl = "/images/avatar_" + randomStr + ".png";
+  }
+
   return user;
 });
-
-
-
-

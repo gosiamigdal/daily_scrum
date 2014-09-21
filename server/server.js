@@ -1,5 +1,22 @@
+SyncedCron.add({
+  name: 'Sent email reminders to update their daily status',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.cron('*/5 * * * *', true);
+  },
+  job: function() {
+    console.log('Sending email reminders');
+    Meteor.users.find().forEach(function(user) {
+      console.log('User %s, email %s',
+        user.profile.name, user.emails[0].address);
+    });
+    return 'Emails sent';
+  }
+});
+
 Meteor.startup(function () {
   // code to run on server at startup
+  SyncedCron.start();
 });
 
 Task.allow({

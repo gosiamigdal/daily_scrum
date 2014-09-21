@@ -13,4 +13,5 @@ ian:bootstrap-3
 email
 iron:router
 http
+percolatestudio:synced-cron
 

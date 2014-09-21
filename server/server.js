@@ -2,14 +2,31 @@ SyncedCron.add({
   name: 'Sent email reminders to update their daily status',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('*/5 * * * *', true);
+    return parser.cron('0 17 * *');
   },
   job: function() {
     console.log('Sending email reminders');
+    var sendCount = 0;
+    var skipCount = 0;
     Meteor.users.find().forEach(function(user) {
-      console.log('User %s, email %s',
-        user.profile.name, user.emails[0].address);
+      var profile = _.defaults(user.profile, {sendDailyEmails: true});
+      if (profile.sendDailyEmails) {
+        // Send email
+        Email.send({
+          to: user.emails[0].address,
+          from: "daily.scrum@example.com",
+          subject: user.profile.name + " fill what you have done today!",
+          text: "Please fill what you done today " + Meteor.absoluteUrl() + "\n" +
+            "\n" +
+            "Delivered to you by daily scrum"
+        });
+        sendCount += 1;
+      } else {
+        // Skipping
+        skipCount += 1;
+      }
     });
+    console.log('Sent %d email, skipped %d users', sendCount, skipCount);
     return 'Emails sent';
   }
 });

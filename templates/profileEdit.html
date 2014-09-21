@@ -1,8 +1,16 @@
 <template name="profileEdit">
   <div class="container">
     <h2>Here you can edit your profile</h2>
-      <label for="username">Username:</label>
-      <input type="text" id="username" value="{{username}}"/>
-      <input type="button" value="Change" />
+    <table>
+      <tr>
+        <td><label for="username">Username:</label></td>
+        <td><input type="text" id="username" value="{{username}}"/></td>
+      </tr>
+      <tr>
+        <td><label for="daily-reminders">Send me daily reminders</label></td>
+        <td><input type="checkbox" id="daily-reminders" checked={{sendDailyEmails}}></td>
+      </tr>
+    </table>
+    <input type="button" value="Save changes" /> <br>
   </div>
 </template>

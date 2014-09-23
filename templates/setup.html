@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
       {{#if hasInvitation}}
-        <h2>Your invitations:</h2>
+        <h2>Your invitations</h2>
         {{#each invitations}}
           {{> invitationItem}}
         {{/each}}
@@ -22,6 +22,13 @@
          <h2>Ask someone to invite you or create your own group.</h2>
       {{/if}}
     </div>
+  </div>
+</template>
+
+<template name="invitationItem">
+  <div>
+    <p>Invitation to Group {{groupName}} from {{sender}}
+    <input type="button" value="Join" class="join"/></p>
   </div>
 </template>
 

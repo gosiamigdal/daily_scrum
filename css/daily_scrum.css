@@ -53,3 +53,10 @@ input[placeholder] {
 #login-dropdown-list .dropdown-menu {
   min-width: 350px;
 }
+
+@media (max-width: 767px) {
+  ul.navbar-right {
+    position: absolute;
+    padding-left: 60px;
+  }
+}

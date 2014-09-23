@@ -1,11 +1,15 @@
 Template.createGroup.events({
   'click input[type="button"]': function (e, tmpl) {
-    var name = tmpl.$('input[type="text"]').val();
-    console.log("Creating group" + name);
-    var id = Group.insert({name: name, creatorUserId: Meteor.userId()});
-    Meteor.users.update(Meteor.userId(), {$set:
-      {'profile.groupId': id}
-    });
+    var name = tmpl.$('input[type="text"]').val().trim();
+    if (name.length > 0) {
+      console.log("Creating group" + name);
+      var id = Group.insert({name: name, creatorUserId: Meteor.userId()});
+      Meteor.users.update(Meteor.userId(), {$set:
+        {'profile.groupId': id}
+      });
+    } else {
+      alert("Group needs a name.");
+    }
 
   }
 

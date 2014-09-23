@@ -123,9 +123,13 @@ function parseTask(text) {
 }
 
 function addTask() {
-  var name = $('input[type="text"].new_item').val();
-  Task.insert(parseTask(name));
-  $('input[type="text"].new_item').val('');
+  var name = $('input[type="text"].new_item').val().trim();
+  if (name.length > 0) {
+    Task.insert(parseTask(name));
+    $('input[type="text"].new_item').val('');
+  } else {
+    alert("Task needs some description.");
+  } 
 }
 
 function toHumanTime(rawMinutes) {

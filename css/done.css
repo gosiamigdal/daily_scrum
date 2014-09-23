@@ -58,6 +58,11 @@
   padding: 10px 0;
 }
 
+.team li p {
+  display: inline;
+  margin-left: 10px;
+}
+
 #team-invitations-header:after {
   font-family: 'Glyphicons Halflings';
   content: "\e114";
@@ -71,3 +76,10 @@
 .img-avatar {
   margin-right: 10px;
 }
+
+p .join {
+  margin-left: 10px;
+}
+
+
+

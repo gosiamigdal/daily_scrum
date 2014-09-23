@@ -5,21 +5,6 @@
     font-weight: 300;
 }
 
-h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-}
-
-h2 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-}
-
-h3 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-}
-
 p {
     font-size: 1.2em;
 }
@@ -38,9 +23,8 @@ a {
 }
 
 .create-button {
-    padding-left: 35px;
-    padding-right: 35px;
-
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .insert-text {
@@ -55,8 +39,9 @@ input[placeholder] {
     font-size: 16px;
 }
 
-.signup-button {
-    margin-top: 15px;
+.join {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 

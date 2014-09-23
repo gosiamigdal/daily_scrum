@@ -46,7 +46,7 @@
 <template name="teamMember">
   <li>
     {{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
-    <span title="{{email}}">{{name}}</span>
+    <p title="{{email}}">{{name}}</p>
   </li>
 </template>
 
@@ -61,7 +61,7 @@
 </template>
 
 <template name="taskDoneBy">
-  <h3>{{# if hasAvatar}}<img src="{{avatarUrl}}" />{{/if}}
+  <h3>{{# if hasAvatar}}<img class="img-avatar" src="{{avatarUrl}}" />{{/if}}
   {{userName}}, Total time: {{humanTotalTime}}</h3>
   <table class="task">
     {{#each task}}

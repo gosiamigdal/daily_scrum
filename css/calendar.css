@@ -1,5 +1,4 @@
 .calendar {
-  position: relative;
 }
 
 .calendar th {
@@ -17,6 +16,8 @@
 }
 
 .calendar h2 {
+  max-width: 250px;
+  position: relative;
   text-align: center;
   font-size: 250%;
 }

@@ -125,9 +125,7 @@ Meteor.users.deny({
   }
 });
 
-Meteor.publish('allUsers', function () {
-  return Meteor.users.find();
-});
+
 
 Accounts.onCreateUser(function (options, user) {
   if (user.profile == null) {

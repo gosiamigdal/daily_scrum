@@ -268,4 +268,13 @@ Template.taskItem.isMine = function () {
   } else {
     return "";
   }
-}
+};
+
+Tracker.autorun(function () {
+  var user = Meteor.user(); // depend on user
+  if (user != null) {
+    Meteor.subscribe('usersFromMyGroup', user._id, user.profile.groupId);
+    Meteor.subscribe('myGroup', user._id, user.profile.groupId);
+    Meteor.subscribe('invitationsToMyGroup', user._id, user.profile.groupId);
+  }
+});

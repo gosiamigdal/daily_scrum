@@ -1,4 +1,4 @@
-var users = Meteor.subscribe("allUsers");
+var users = Meteor.subscribe('usersFromMyGroup');
 
 Tracker.autorun(function () {
   if (Router.current() == null || !users.ready()) {

@@ -81,4 +81,10 @@ Template.calendarDay.events({
       setSelectedMoment(m);
     }
   }
-})
+});
+
+// Show tasks from current month.
+Tracker.autorun(function () {
+  var m = selectedMoment();
+  Meteor.subscribe('tasksForMonth', m.year(), m.month());
+});

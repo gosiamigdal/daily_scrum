@@ -48,6 +48,9 @@ Template.calendar.weeksOfMonth = function () {
         if (m.date() == selectedDay) {
           clazz += " selected";
         }
+        if (Task.find({year: m.year(), month: m.month(), day: m.date()}).count() > 0) {
+          clazz += " with-tasks";
+        }
         daysOfWeek.push({date: m.date(), attr: {class: clazz}});
       } else {
         daysOfWeek.push({date: ""});

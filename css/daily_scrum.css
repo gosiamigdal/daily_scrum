@@ -59,4 +59,15 @@ input[placeholder] {
     position: absolute;
     padding-left: 60px;
   }
+
+  .fork-on-github-ribbon {
+    display: none;
+  }
+}
+
+.fork-on-github-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
 }

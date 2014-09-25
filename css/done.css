@@ -9,6 +9,7 @@
 
 .new_item {
   width: 600px;
+  width: calc(100% - 150px);
   height: 35px;
 }
 
@@ -85,6 +86,3 @@
 p .join {
   margin-left: 10px;
 }
-
-
-

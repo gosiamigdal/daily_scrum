@@ -88,11 +88,11 @@ Template.teamMember.email = function () {
   return this.emails[0].address;
 }
 
-function parseTask(text) {
+var parseTask = function(text) {
   var timeRegex = [
-    '([0-9]{1,2})h ?([0-9]{1,2})m',
+    '([0-9]{1,2})h ?([0-9]{1,2})m(in)?',
     '([0-9]{1,2})h',
-    '([0-9]{1,2})m'
+    '([0-9]{1,2})m(in)?'
   ]
   var extractTime = [
     function (r) { return parseInt(r[1]) * 60 + parseInt(r[2]);},
@@ -122,17 +122,17 @@ function parseTask(text) {
   return resultTask;
 }
 
-function addTask() {
+var addTask = function() {
   var name = $('input[type="text"].new_item').val().trim();
   if (name.length > 0) {
     Task.insert(parseTask(name));
     $('input[type="text"].new_item').val('');
   } else {
     alert("Task needs some description.");
-  } 
+  }
 }
 
-function toHumanTime(rawMinutes) {
+var toHumanTime = function(rawMinutes) {
   if (Number.isInteger(rawMinutes)) {
     if (rawMinutes > 59) {
       var hours = rawMinutes / 60;

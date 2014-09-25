@@ -1,0 +1,13 @@
+img.portrait {
+    border-radius: 20px;
+    margin: 30px;
+}
+
+.jacek img.envelope, .gosia img.envelope {
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.jacek, .gosia {
+  margin: 20px 0px;
+}

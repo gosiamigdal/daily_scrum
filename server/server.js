@@ -19,7 +19,7 @@ SyncedCron.add({
           text: "Please fill what you done today " + Meteor.absoluteUrl() + "\n" +
             "\n" +
             "Delivered to you by daily scrum\n\n" +
-            "To unsubscribe: Uncheck 'Send me daily reminders' on " + Meteor.absoluteUrl("profileEdit") + "\n"
+            "To unsubscribe: Uncheck 'Send me daily reminders' on " + Meteor.absoluteUrl("profileEdit") + "\n" +
             "Comments? jacek@migdal.pl"
         });
         sendCount += 1;

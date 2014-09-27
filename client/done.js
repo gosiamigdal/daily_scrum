@@ -6,7 +6,12 @@ Template.hello.groupName = function () {
     return "";
   }
   var groupId = Meteor.user().profile.groupId;
-  return Group.findOne(groupId).name;
+  var group = Group.findOne(groupId);
+  if (group == null) {
+    return "";
+  } else {
+    return group.name;
+  }
 }
 
 Template.hello.date = function () {

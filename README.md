@@ -1,6 +1,6 @@
 # Daily Scrum
 
-A website build in [Meteor](www.meteor.com). Share done status daily within your team. Keep track what ppl have done.
+A website build in [Meteor](https://www.meteor.com/). Share done status daily within your team. Keep track what ppl have done.
 
 ## Setup
 

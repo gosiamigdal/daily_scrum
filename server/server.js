@@ -14,11 +14,13 @@ SyncedCron.add({
         // Send email
         Email.send({
           to: user.emails[0].address,
-          from: "daily.scrum@example.com",
+          from: "daily.scrum@dailyscrum.meteor.com",
           subject: user.profile.name + " fill what you have done today!",
           text: "Please fill what you done today " + Meteor.absoluteUrl() + "\n" +
             "\n" +
-            "Delivered to you by daily scrum"
+            "Delivered to you by daily scrum\n\n" +
+            "To unsubscribe: Uncheck 'Send me daily reminders' on " + Meteor.absoluteUrl("profileEdit") + "\n"
+            "Comments? jacek@migdal.pl"
         });
         sendCount += 1;
       } else {
@@ -70,7 +72,7 @@ Invitation.allow({
     if (canInsert) {
       Email.send({
         to: doc.email,
-        from: "daily.scrum@example.com",
+        from: "daily.scrum@dailyscrum.meteor.com",
         subject: user.profile.name + " invited you to daily scrum!",
         text: "Please sign up at " + Meteor.absoluteUrl() + "\n" +
           "\n" +
